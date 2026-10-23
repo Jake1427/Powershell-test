@@ -18,3 +18,10 @@ try {
 catch {
     Write-Host "An error occurred during download or execution: $_" -ForegroundColor Red
 }
+finally {
+    # Automatically clean up and delete the file from the Temp folder when done
+    if (Test-Path $outputPath) {
+        Remove-Item -Path $outputPath -Force -ErrorAction SilentlyContinue
+        Write-Host "Temporary file cleaned up successfully." -ForegroundColor DarkGray
+    }
+}
